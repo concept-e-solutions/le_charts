@@ -1,0 +1,17 @@
+colors:
+  dark_blue:  "#12203A"
+  medium_blue: "#1863C2"
+  light_blue: "#56B3D4"
+  grid:       "#E5E5E5"
+
+plot:
+  template: "plotly_white"
+  width: 1299
+  height: 506
+  font_family: "Montserrat Light, sans-serif"
+  font_size: 13
+  margins:
+    right: 80
+    left: 120
+    top: 60
+    bottom: 80

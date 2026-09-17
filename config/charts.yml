@@ -1,0 +1,63 @@
+# Diese Datei definiert die Konfiguration für die Diagramme, die im Bericht erstellt werden sollen.
+# Jedes Diagramm wird durch einen Eintrag im "charts"-Array definiert.
+
+charts:
+  - name: name_des_ersten_diagramms
+    title: "Titel des Diagramms"
+    x: "timestamp" # muss mit dem Namen der Spalte übereinstimmen, die die x-Achse darstellt
+    x_title: "Titel der x-Achse"
+    y_title: "Titel der y-Achse"
+    dataset: part1 # muss mit den Namen des Datensatzes übereinstimmen, der in den Berechnungen erstellt wurde
+ 
+    series:
+      - column: spaltenname1 # muss mit dem Namen der Spalte übereinstimmen, die die Daten für diese Serie enthält
+        label: "Label für die Serie"
+        color: dark_blue # kann dark_blue, medium_blue, light_blue oder grid sein
+        kind: area # kann area, line, scatter oder bar sein
+
+      - column: spaltenname2
+        label: "Label für die zweite Serie"
+        color: medium_blue
+        kind: area
+
+      - column: spaltenname3
+        label: "Label für die dritte Serie"
+        color: light_blue
+        kind: area
+
+      - column: spaltenname4
+        label: "Label für die vierte Serie"
+        color: dark_blue
+        kind: line
+        line_width: 1 # optional, nur relevant für Linien-Diagramme, gibt die Breite der Linie an
+
+  - name: name_des_zweiten_diagramms
+    title: "Titel des zweiten Diagramms"
+    x: month # muss mit dem Namen der Spalte übereinstimmen, die die x-Achse darstellt
+    x_title: "x"
+    y_title: "y"
+    dataset: part2 # muss mit den Namen des Datensatzes übereinstimmen, der in den Berechnungen erstellt wurde
+    barmode: stack # optional, nur relevant für Balkendiagramme, gibt an, ob die Balken gestapelt werden sollen oder nicht
+    series:
+      - column: spaltenname1
+        label: "block 1"
+        color: dark_blue
+        kind: bar 
+
+      - column: spaltenname2
+        label: "block 2"
+        color: medium_blue
+        kind: bar
+
+      - column: spaltenname3
+        label: "block 3"
+        color: light_blue
+        kind: bar
+
+      - column: spaltenname4
+        label: "block 4"
+        color: grid
+        kind: bar
+
+# Optional: Weitere Diagramme können hier hinzugefügt werden, indem Sie weitere Einträge im "charts"-Array erstellen. 
+# Achte darauf, dass die Namen der Spalten und Datensätze mit den in den Berechnungen erstellten übereinstimmen.

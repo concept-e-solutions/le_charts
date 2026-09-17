@@ -1,0 +1,191 @@
+charts:
+  - name: "01_pv_verwendung"
+    title: "Verwendung der PV-Erzeugung"
+    source: data
+    x: "timestamp"
+    x_title: "Zeit"
+    y_title: "Leistung (kW)"
+    dataset: weekly
+ 
+    series:
+      - column: pv_selbst_W_kw
+        label: "PV -> Eigenverbrauch W"
+        color: dark_blue
+        kind: area
+
+      - column: pv_sharing_kw
+        label: "PV -> Sharing R"
+        color: medium_blue
+        kind: area
+
+      - column: pv_einspeisung_kw
+        label: "PV -> Einspeisung"
+        color: light_blue
+        kind: area
+
+      - column: last_W_kw
+        label: "Last W"
+        color: dark_blue
+        kind: line
+        line_width: 1
+
+  - name: 02_deckung_R_woche
+    x: timestamp
+    title: "Schritt 2+3: Deckung der Lasten von R (Beispielwoche)"
+    x_title: "Zeit"
+    y_title: "Leistung (kW)"
+    dataset: weekly
+    series:
+      - column: pv_sharing_kw
+        label: "PV-Sharing"
+        color: dark_blue
+        kind: area
+
+      - column: wind_r_kw
+        label: "Wind"
+        color: medium_blue
+        kind: area
+
+      - column: netz_r_kw
+        label: "Netzbezug"
+        color: light_blue
+        kind: area
+
+      - column: last_W_kw
+        label: "Last W"
+        color: dark_blue
+        kind: line
+        line_width: 1
+
+  - name: 03_wind_verwendung_woche
+    x: timestamp
+    title: "Schritt 3: Verwendung der Winderzeugung (Beispielwoche)"
+    x_title: "Zeit"
+    y_title: "Leistung (kW)"
+    dataset: weekly
+    series:
+      - column: wind_W_kw
+        label: "Wind → W"
+        color: dark_blue
+        kind: area
+        stackgroup: one
+
+      - column: wind_r_kw
+        label: "Wind → R"
+        color: medium_blue
+        kind: area
+        stackgroup: one
+
+      - column: wind_einspeisung_kw
+        label: "Wind → Einspeisung"
+        color: light_blue
+        kind: area
+        stackgroup: one
+
+      - column: wind_kw
+        label: "Winderzeugung"
+        color: dark_blue
+        kind: line
+        line_width: 1
+
+  - name: 04_monatsbilanz_deckung
+    x: month
+    title: "Monatsbilanz: Deckung der Gesamtlast (W + OHS + VW)"
+    x_title: "Monat"
+    y_title: "Energie (MWh)"
+    dataset: monthly
+    barmode: stack
+    series:
+      - column: pv_selbst_W_month
+        label: "PV Eigenverbrauch W"
+        color: dark_blue
+        kind: bar
+
+      - column: pv_sharing_month
+        label: "PV-Sharing an R"
+        color: medium_blue
+        kind: bar
+
+      - column: wind_nutzung_month
+        label: "Wind (W+R)"
+        color: light_blue
+        kind: bar
+
+      - column: netz_gesamt_month
+        label: "Netzbezug"
+        color: grid
+        kind: bar
+
+  - name: 05_jahresenergiefluesse
+    title: "Jahresenergieflüsse"
+    x_title: "MWh"
+    y_title: "Energie (MWh)"
+    dataset: annual
+    multiplot: true
+    subplots:
+      - title: "PV gesamt"
+        series:
+          - value: pv_einspeisung_value
+            label: "PV → Einspeisung"
+            color: dark_blue
+            kind: bar
+
+          - value: pv_sharing_value
+            label: "PV → Sharing R"
+            color: dark_blue
+            kind: bar
+
+          - value: pv_selbst_W_value
+            label: "PV → Eigenverbr. W"
+            color: dark_blue
+            kind: bar
+
+      - title: "Wind gesamt"
+        series:
+          - value: wind_einspeisung_value
+            label: "Wind → Einspeisung"
+            color: medium_blue
+            kind: bar
+
+          - value: wind_VW_value
+            label: "Wind → VW"
+            color: medium_blue
+            kind: bar
+
+          - value: wind_OHS_value
+            label: "Wind → OHS"
+            color: medium_blue
+            kind: bar
+
+          - value: wind_W_value
+            label: "Wind → W"
+            color: medium_blue
+            kind: bar
+
+  - name: 06_monatlicher_vorteil
+    x: month
+    title: "Monatlicher Vorteil ggü. Bestand"
+    x_title: "Monat"
+    y_title: "EUR"
+    dataset: benefit_monthly
+    barmode: stack
+    series:
+      - column: eur_eigen
+        label: "Gesparter Netzbezug PV-Eigenverbrauch W"
+        color: dark_blue
+        kind: bar
+
+      - column: eur_pv
+        label: "Energy Sharing PV → R"
+        color: medium_blue
+        kind: bar
+
+      - column: eur_wind
+        label: "Energy Sharing Wind → W + R"
+        color: light_blue
+        kind: bar
+
+      - column: eur_einsp
+        label: "Einspeiseerlöse"
+        color: grid
+        kind: bar
