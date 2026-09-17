@@ -160,6 +160,31 @@ charts:
         color: grid
         kind: bar
 
+  - name: E1_Monatsdeckung_Wind
+    title: "Monatliche Deckung der Gesamtlast (inkl. Wind)"
+    dataset: monatlich
+    x: Monat_Name
+    x_title: "Monat"
+    y_title: "Energie (MWh)"
+    barmode: stack
+    series:
+      - column: PV2_EV_MWh
+        label: "PV2"
+        color: medium_blue
+        kind: bar
+      - column: PV1_EV_MWh
+        label: "PV1"
+        color: dark_blue
+        kind: bar
+      - column: Wind_EV_MWh
+        label: "Wind"
+        color: light_blue
+        kind: bar
+      - column: Netz_MWh
+        label: "Netz"
+        color: grid
+        kind: bar
+
   - name: E2_Monatsvorteil
     title: "Monatlicher wirtschaftlicher Vorteil"
     dataset: mon_euro
