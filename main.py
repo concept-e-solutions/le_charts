@@ -17,5 +17,5 @@ if __name__ == "__main__":
     for cfg in charts:
         data = datasets[cfg["dataset"]]
         fig = create_chart(data, cfg)
-        export_chart(fig=fig, filename=cfg["name"], output_dir="output_template_test")
+        export_chart(fig=fig, filename=cfg["name"], output_dir="output")
     print("Chart generation completed.")

@@ -1,63 +1,299 @@
-# Diese Datei definiert die Konfiguration für die Diagramme, die im Bericht erstellt werden sollen.
-# Jedes Diagramm wird durch einen Eintrag im "charts"-Array definiert.
-
 charts:
-  - name: name_des_ersten_diagramms
-    title: "Titel des Diagramms"
-    x: "timestamp" # muss mit dem Namen der Spalte übereinstimmen, die die x-Achse darstellt
-    x_title: "Titel der x-Achse"
-    y_title: "Titel der y-Achse"
-    dataset: part1 # muss mit den Namen des Datensatzes übereinstimmen, der in den Berechnungen erstellt wurde
- 
+  - name: V1_Validierung_PV1_Monatsprofile
+    title: "PV1-Monatsprofil"
+    dataset: monatlich
+    x: Monat
+    x_title: "Monat"
+    y_title: "Energie (MWh)"
     series:
-      - column: spaltenname1 # muss mit dem Namen der Spalte übereinstimmen, die die Daten für diese Serie enthält
-        label: "Label für die Serie"
-        color: dark_blue # kann dark_blue, medium_blue, light_blue oder grid sein
-        kind: area # kann area, line, scatter oder bar sein
+      - column: PV1_MWh
+        label: "PV1"
+        color: dark_blue
+        kind: bar
 
-      - column: spaltenname2
-        label: "Label für die zweite Serie"
+  - name: V1_Validierung_Wind_Monatsprofile
+    title: "Wind-Monatsprofil"
+    dataset: monatlich
+    x: Monat
+    x_title: "Monat"
+    y_title: "Energie (MWh)"
+    series:
+      - column: Wind_MWh
+        label: "Wind"
         color: medium_blue
-        kind: area
+        kind: bar
 
-      - column: spaltenname3
-        label: "Label für die dritte Serie"
+  - name: V1_Validierung_Last_Monatsprofile
+    title: "Unternehmenslast"
+    dataset: monatlich
+    x: Monat
+    x_title: "Monat"
+    y_title: "Energie (MWh)"
+    series:
+      - column: Last_MWh
+        label: "Unternehmenslast"
+        color: dark_blue
+        kind: bar
+
+  - name: V1_Validierung_Heizlast_Monatsprofile
+    title: "Heizlast Wärmepumpe 2025"
+    dataset: monatlich
+    x: Monat
+    x_title: "Monat"
+    y_title: "Energie (MWh)"
+    series:
+      - column: Heizlast_MWh
+        label: "Heizlast"
+        color: medium_blue
+        kind: bar
+
+  - name: V2_Beispielwoche_Winter
+    title: "Beispielwoche Winter 2025"
+    dataset: winterwoche
+    x: Zeitstempel
+    x_title: "Zeit"
+    x_tickformat: "%d.%m."
+    y_title: "Leistung (kW)"
+    series:
+      - column: PV2_kW
+        label: "PV2"
         color: light_blue
         kind: area
-
-      - column: spaltenname4
-        label: "Label für die vierte Serie"
+        stackgroup: erzeugung
+      - column: PV1_kW
+        label: "PV1"
+        color: medium_blue
+        kind: area
+        stackgroup: erzeugung
+      - column: Wind_kW
+        label: "Wind"
+        color: grid
+        kind: area
+        stackgroup: erzeugung
+      - column: Gesamtlast_kW
+        label: "Gesamtlast"
         color: dark_blue
         kind: line
-        line_width: 1 # optional, nur relevant für Linien-Diagramme, gibt die Breite der Linie an
 
-  - name: name_des_zweiten_diagramms
-    title: "Titel des zweiten Diagramms"
-    x: month # muss mit dem Namen der Spalte übereinstimmen, die die x-Achse darstellt
-    x_title: "x"
-    y_title: "y"
-    dataset: part2 # muss mit den Namen des Datensatzes übereinstimmen, der in den Berechnungen erstellt wurde
-    barmode: stack # optional, nur relevant für Balkendiagramme, gibt an, ob die Balken gestapelt werden sollen oder nicht
+  - name: V2_Beispielwoche_Sommer
+    title: "Beispielwoche Sommer 2025"
+    dataset: sommerwoche
+    x: Zeitstempel
+    x_title: "Zeit"
+    x_tickformat: "%d.%m."
+    y_title: "Leistung (kW)"
     series:
-      - column: spaltenname1
-        label: "block 1"
+      - column: PV2_kW
+        label: "PV2"
+        color: light_blue
+        kind: area
+        stackgroup: erzeugung
+      - column: PV1_kW
+        label: "PV1"
+        color: medium_blue
+        kind: area
+        stackgroup: erzeugung
+      - column: Wind_kW
+        label: "Wind"
+        color: grid
+        kind: area
+        stackgroup: erzeugung
+      - column: Gesamtlast_kW
+        label: "Gesamtlast"
         color: dark_blue
-        kind: bar 
+        kind: line
 
-      - column: spaltenname2
-        label: "block 2"
+  - name: V3_Lastgang_Jahresverlauf
+    title: "Jahresverlauf des Strom-Lastgangs"
+    dataset: lastgang
+    x: Zeitstempel
+    x_title: "Zeit"
+    y_title: "Leistung (kW)"
+    series:
+      - column: Alter_Lastgang_kW
+        label: "Alter Lastgang"
+        color: dark_blue
+        kind: line
+      - column: Neuer_Lastgang_kW
+        label: "Neuer Lastgang inklusive WP"
+        color: medium_blue
+        kind: line
+
+  - name: V3_Lastgang_Jahresdauerlinie
+    title: "Jahresdauerlinie des Strom-Lastgangs"
+    dataset: dauerlinie
+    x: Intervall
+    x_title: "15-Minuten-Intervalle"
+    y_title: "Leistung (kW)"
+    series:
+      - column: Alter_Lastgang_kW
+        label: "Alter Lastgang"
+        color: dark_blue
+        kind: line
+      - column: Neuer_Lastgang_kW
+        label: "Neuer Lastgang inklusive WP"
+        color: medium_blue
+        kind: line
+
+  - name: E1_Monatsdeckung
+    title: "Monatliche Deckung der Gesamtlast"
+    dataset: monatlich
+    x: Monat_Name
+    x_title: "Monat"
+    y_title: "Energie (MWh)"
+    barmode: stack
+    series:
+      - column: PV2_EV_MWh
+        label: "PV2"
         color: medium_blue
         kind: bar
-
-      - column: spaltenname3
-        label: "block 3"
-        color: light_blue
+      - column: PV1_EV_MWh
+        label: "PV1"
+        color: dark_blue
         kind: bar
-
-      - column: spaltenname4
-        label: "block 4"
+      #- column: Wind_EV_MWh
+       # label: "Wind"
+        #color: light_blue
+        #kind: bar
+      - column: Netzbezug_+_wind
+        label: "Netz"
         color: grid
         kind: bar
 
-# Optional: Weitere Diagramme können hier hinzugefügt werden, indem Sie weitere Einträge im "charts"-Array erstellen. 
-# Achte darauf, dass die Namen der Spalten und Datensätze mit den in den Berechnungen erstellten übereinstimmen.
+  - name: E2_Monatsvorteil
+    title: "Monatlicher wirtschaftlicher Vorteil"
+    dataset: mon_euro
+    x: Monat
+    x_title: "Monat"
+    y_title: "Vorteil (EUR)"
+    barmode: stack
+    series:
+      - column: PV1_EV_EUR
+        label: "PV1 Eigenverbrauch"
+        color: dark_blue
+        kind: bar
+      - column: PV1_Einsp_EUR
+        label: "PV1 Einspeisung"
+        color: medium_blue
+        kind: bar
+      - column: PV2_EV_EUR
+        label: "PV2 Eigenverbrauch"
+        color: light_blue
+        kind: bar
+      - column: PV2_Einsp_EUR
+        label: "PV2 Einspeisung"
+        color: grid
+        kind: bar
+      - column: Wind_EV_EUR
+        label: "Wind Eigenverbrauch"
+        color: dark_blue
+        kind: bar
+      - column: Wind_Einsp_EUR
+        label: "Wind Einspeisung"
+        color: medium_blue
+        kind: bar
+
+  - name: E3_Jahresdauerlinie_Erzeugung_Last
+    title: "Jahresdauerlinie Erzeugung und Last"
+    dataset: dauerlinie
+    x: Intervall
+    x_title: "15-Minuten-Intervalle"
+    y_title: "Leistung (kW)"
+    series:
+      - column: Erzeugung_kW
+        label: "Erzeugung gesamt"
+        color: dark_blue
+        kind: line
+      - column: Gesamtlast_kW
+        label: "Gesamtlast"
+        color: medium_blue
+        kind: line
+
+  - name: E3_Jahresdauerlinie_Netzbezug_Einspeisung
+    title: "Jahresdauerlinie Netzbezug und Einspeisung"
+    dataset: dauerlinie
+    x: Intervall
+    x_title: "15-Minuten-Intervalle"
+    y_title: "Leistung (kW)"
+    series:
+      - column: Netzbezug_kW
+        label: "Netzbezug"
+        color: dark_blue
+        kind: line
+      - column: Einspeisung_kW
+        label: "Einspeisung"
+        color: medium_blue
+        kind: line
+
+  - name: E4_WP_Strommix
+    title: "Strommix der Wärmepumpe"
+    dataset: wp_strommix
+    x: Quelle
+    x_title: "Quelle"
+    y_title: "Energie (kWh)"
+    series:
+      - column: Energie_kWh
+        label: "WP-Strom"
+        color: dark_blue
+        kind: bar
+
+  - name: E5_Amortisation
+    title: "Statische Amortisation je Maßnahme"
+    dataset: amortisation
+    x: Massnahme_kurz
+    x_title: "Maßnahme"
+    y_title: "Amortisation (Jahre)"
+    series:
+      - column: Amortisation_a
+        labels:
+          - "PV1 500 kWp"
+          - "PV2 336 kWp Carport"
+          - "WKA 2 MW Energy Sharing"
+          - "WP konservativ"
+          - "WP systemisch"
+        colors:
+          - dark_blue
+          - medium_blue
+          - light_blue
+          - grey1
+          - grid
+        kind: bar
+
+  - name: E6_Cashflow
+    title: "Kumulierter Netto-Cashflow"
+    dataset: cashflow
+    x: Jahr
+    x_title: "Jahr"
+    y_title: "Cashflow (EUR)"
+    series:
+      - column: Cashflow_EUR
+        label: "Cashflow"
+        color: dark_blue
+        kind: line
+        line_width: 2
+
+  - name: E7_Sensitivitaet_Preisniveau
+    title: "Amortisation in Abhängigkeit vom Preisniveau"
+    dataset: sens_preis
+    x: Netzstrom_Neu_ct
+    x_title: "Reststrompreis (ct/kWh)"
+    y_title: "Amortisation (Jahre)"
+    series:
+      - column: Amortisation_a
+        label: "Amortisation"
+        color: dark_blue
+        kind: line
+        line_width: 2
+
+  - name: E7_Sensitivitaet_Windertrag
+    title: "Amortisation in Abhängigkeit vom Wind-Ertrag"
+    dataset: sens_vlh
+    x: Wind_VLh
+    x_title: "Wind-Volllaststunden (h/a)"
+    y_title: "Amortisation (Jahre)"
+    series:
+      - column: Amortisation_a
+        label: "Amortisation"
+        color: medium_blue
+        kind: line
+        line_width: 2

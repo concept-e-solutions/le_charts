@@ -33,16 +33,57 @@ def _add_series(fig, df, series_cfg, x_values):
             )
         )
 
+
     elif kind == "bar":
-        fig.add_trace(
-            go.Bar(
-                x=x_values,
-                y=values,
-                name=series_cfg.get("label", series_cfg["column"]),
-                marker=dict(color=color),
-                hovertemplate="%{x}<br>%{y}<extra></extra>",
+        configured_colors = series_cfg.get("colors")
+        configured_labels = series_cfg.get("labels")
+
+        if configured_colors is None and configured_labels is None:
+            fig.add_trace(
+                go.Bar(
+                    x=x_values,
+                    y=values,
+                    name=series_cfg.get("label", series_cfg["column"]),
+                    marker=dict(color=color),
+                    hovertemplate="%{x}<br>%{y}<extra></extra>",
+                )
             )
-        )
+        else:
+
+            if configured_labels is None:
+                configured_labels = [series_cfg.get("label", series_cfg["column"])] * len(values)
+
+            if configured_colors is None:
+                configured_colors = [color] * len(values)
+
+            if len(configured_colors) != len(values):
+                raise ValueError(
+                    f"Für '{series_cfg['column']}' müssen "
+                    f"{len(values)} Farben angegeben werden."
+                )
+
+            if len(configured_labels) != len(values):
+                raise ValueError(
+                    f"Für '{series_cfg['column']}' müssen "
+                    f"{len(values)} Labels angegeben werden."
+                )
+            
+            for x_value, value, bar_color, bar_label in zip(
+                x_values,
+                values,
+                configured_colors,
+                configured_labels,
+            ):
+                fig.add_trace(
+                    go.Bar(
+                        x=[x_value],
+                        y=[value],
+                        name=bar_label,
+                        marker=dict(color=resolve_color(bar_color)),
+                        showlegend=True,
+                        hovertemplate="%{x}<br>%{y}<extra></extra>",
+                    )
+                )
 
     elif kind == "area":
         fig.add_trace(
@@ -54,6 +95,7 @@ def _add_series(fig, df, series_cfg, x_values):
                 stackgroup=series_cfg.get("stackgroup", "one"),
                 line=dict(color=color, width=0),
                 hovertemplate="%{x}<br>%{y}<extra></extra>",
+                fillcolor=color,
                 opacity=0.85,
             )
         )
@@ -110,6 +152,7 @@ def create_subplots_bar_chart(data, chart_cfg):
     )
 
     return fig
+
 def create_chart(data, chart_cfg):
     if chart_cfg.get("multiplot"):
         return create_subplots_bar_chart(data, chart_cfg)
@@ -133,6 +176,16 @@ def create_chart(data, chart_cfg):
         x_title=chart_cfg.get("x_title"),
         y_title=chart_cfg.get("y_title"),
     )
+
+    if chart_cfg.get("x_tickformat"):
+        fig.update_xaxes(
+            tickformat=chart_cfg["x_tickformat"]
+        )
+    if chart_cfg.get("y_tickformat"):
+        fig.update_yaxes(
+            tickformat=chart_cfg["y_tickformat"]
+        )
+
     if chart_cfg.get("barmode"):
         fig.update_layout(barmode=chart_cfg["barmode"])
 

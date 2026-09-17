@@ -2,14 +2,16 @@ colors:
   dark_blue:  "#12203A"
   medium_blue: "#1863C2"
   light_blue: "#56B3D4"
-  grid:       "#E5E5E5"
+  grid:       "#D1D4D6" #grey 2
+  grey1:      "#A2A4A6" #grey 1
+  grey3:      "#EEF1F4" #grey 3
 
 plot:
   template: "plotly_white"
   width: 1299
   height: 506
-  font_family: "Montserrat Light, sans-serif"
-  font_size: 13
+  font_family: "Montserrat, sans-serif"
+  font_size: 17
   margins:
     right: 80
     left: 120
